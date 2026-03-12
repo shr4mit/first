@@ -15,7 +15,7 @@ class Solution {
         arr[kk]=(int)(win/idx);
         for(int i=idx;i<arr.length;i++){
             win=win-nums[i-idx]+nums[i];
-            arr[++kk]=(int)(win/idx);
+            arr[++k]=(int)(win/idx);
                     }
                     return arr;
     }
