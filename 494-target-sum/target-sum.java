@@ -1,25 +1,21 @@
 class Solution {
-    static int dp[][];
-    static int offset;
-    static int fxn(int arr[], int i,int sum,int target){
-        if(i==arr.length){
-          if(sum==target) return 1;
-        return 0;
-        }
-         if(dp[i][sum+offset]!=-1) return dp[i][sum+offset];
-        int ex=fxn(arr,i+1,sum-arr[i],target);
-        int in=fxn(arr,i+1,sum+arr[i],target);
-        return dp[i][sum+offset]= ex+in;
-    }
-    public int findTargetSumWays(int[] nums, int target) {
+    public int findTargetSumWays(int[] nums,int target) {
         int total=0;
-        for(int x:nums) total+=x;
-        offset=total;
-        dp=new int[nums.length+1][2*total+1];
-        for(int x[]:dp){
-            Arrays.fill(x,-1);
+        for(int x:nums){
+            total+=x;
         }
-        if(Math.abs(target)>total) return 0;
-        return fxn(nums,0,0,target);
+        int offset=total;
+        int dp[][]=new int[nums.length+1][2*total+1];
+        dp[0][offset]=1;
+        for(int i=0;i<nums.length;i++){
+            for(int sum=-total;sum<=total;sum++){
+                if(dp[i][sum+offset]>0){
+                dp[i+1][sum+nums[i]+offset]+=dp[i][sum+offset];
+                dp[i+1][sum-nums[i]+offset]+=dp[i][sum+offset];
+                }
+            }
+        }
+        if(target>total||target<-total)return 0;
+        return dp[nums.length][target+offset];
     }
 }
