@@ -1,10 +1,10 @@
 class Solution {
     static int dp[][];
-    static int fxn(int arr[],int i,int sum1,int sum2, int total ){
+    static int fxn(int arr[],int i,int sum1,int sum2 ){
         if(i==arr.length) return Math.abs(sum1-sum2);
         if(dp[i][sum1]!=-1) return dp[i][sum1];
-        int in=fxn(arr,i+1,sum1+arr[i],sum2,total);
-        int ex=fxn(arr,i+1,sum1,sum2+arr[i],total);
+        int in=fxn(arr,i+1,sum1+arr[i],sum2);
+        int ex=fxn(arr,i+1,sum1,sum2+arr[i]);
         return dp[i][sum1]=Math.min(ex,in);
     }
     public int lastStoneWeightII(int[] stones) {
@@ -14,6 +14,6 @@ class Solution {
         for(int x[]:dp){
             Arrays.fill(x,-1);
         }
-        return fxn(stones,0,0,0,total);
+        return fxn(stones,0,0,0);
     }
 }
