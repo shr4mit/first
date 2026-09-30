@@ -1,21 +1,23 @@
 class Solution {
-    static int dp[][];
-    static int fxn(int arr[], int i,int p){
-        if(i==arr.length) return 0;
-        if(dp[i][p+1]!=-1) return dp[i][p+1];
-        int ex=fxn(arr,i+1,p);
-        int in=0;
-        if( p==-1 ||arr[i]>arr[p]){
-             in=1+fxn(arr,i+1,i);
+    static int dp[];
+    static int fxn(int arr[], int i) {
+        if(i==0) return 1;
+        if(dp[i]!=-1) return dp[i];
+        int mx=1;
+        for(int j=i-1;j>=0;j--) {
+            if(arr[i]>arr[j]) {
+                mx=Math.max(mx,1+fxn(arr,j));
+            }
         }
-        return dp[i][p+1]=Math.max(in,ex);
+        return dp[i]=mx;
     }
     public int lengthOfLIS(int[] nums) {
-
-        dp=new int[nums.length][nums.length+1];
-        for(int x[]:dp){
-            Arrays.fill(x,-1);
-        }
-       return  fxn(nums,0,-1);
+        dp=new int[nums.length];
+        for(int i=0;i<nums.length;i++)
+            dp[i]=-1;
+        int ans=0;
+        for(int i=0;i<nums.length;i++)
+            ans=Math.max(ans,fxn(nums,i));
+        return ans;
     }
 }
