@@ -12,7 +12,7 @@ class Solution {
         return dp[i][j]= ans;
     }
     public int minCost(int n, int[] cuts) {
-        dp=new int[cuts.length+1][cuts.length+3];
+        dp=new int[cuts.length+3][cuts.length+3];
         for(int x[]:dp){
             Arrays.fill(x,-1);
         }
